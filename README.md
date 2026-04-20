@@ -2,16 +2,7 @@
 
 Build, optimize, and tailor your resume with AI. Beat ATS filters, rewrite sections, and generate cover letters – all in one place.
 
----
-
-## 📂 Structure
-
-```
-resumeje/
-├── backend/          # Express 5 Backend (with semantic-release)
-├── frontend/         # Next.js 16 Frontend (with semantic-release)
-└── centralized-resume/  # Root orchestration (with semantic-release)
-```
+**Live**: [www.resumeje.my](https://www.resumeje.my) | **Repo**: [github.com/wan-ilhami/resumeje](https://github.com/wan-ilhami/resumeje)
 
 ---
 
@@ -85,7 +76,7 @@ Browser --> Next.js API Route (/api/*) --> Express Backend (/api/v1/*)
 
 ```bash
 # 1. Clone
-git clone <repo-url> && cd resumeje
+git clone https://github.com/wan-ilhami/resumeje.git && cd resumeje
 
 # 2. Install dependencies
 bun install
@@ -225,23 +216,21 @@ main ----------- production releases
 
 | Prefix            | Bump  | Example                           |
 | ----------------- | ----- | --------------------------------- |
-| eat(scope):    | MINOR | eat(resume): add AI summary    |
-| ix(scope):     | PATCH | ix(parser): handle invalid PDF |
+| feat(scope):    | MINOR | feat(resume): add AI summary    |
+| fix(scope):     | PATCH | fix(parser): handle invalid PDF |
 | BREAKING CHANGE | MAJOR | BREAKING CHANGE: redesign API   |
 
-Scopes: pi, 
-esume, letter, pdf, ui, uth, db, deps, parser
+Scopes: api, resume, letter, pdf, ui, auth, db, deps, parser
 
 ---
 
 ## Production Checklist
 
 - [ ] Set strong JWT_SECRET
-- [ ] Set CORS_ORIGIN to production domain
+- [ ] Set CORS_ORIGIN to `https://www.resumeje.my`
 - [ ] Set GROQ_API_KEY + HUGGINGFACE_API_KEY
 - [ ] Set LOG_LEVEL=warn
-- [ ] Run 
-px prisma migrate deploy
+- [ ] Run `npx prisma migrate deploy`
 - [ ] Configure SSL/TLS
 - [ ] Security audit (OWASP Top 10)
 

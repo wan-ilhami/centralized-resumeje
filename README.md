@@ -1,25 +1,57 @@
-﻿# ResumeJe — AI-Powered Resume Builder
+﻿<div align="center">
 
-Build, optimize, and tailor your resume with AI. Beat ATS filters, rewrite sections, and generate cover letters — all in one place.
+# ResumeJe
+
+### AI-Powered Resume Builder
+
+**Beat ATS filters. Impress recruiters. Land the job.**
+
+[**➜ Try it free at www.resumeje.my**](https://www.resumeje.my)
+
+*No account needed — just upload and go.*
+
+</div>
 
 ---
 
-## ✨ Try It Now
+## What is ResumeJe?
 
-**[www.resumeje.my](https://www.resumeje.my)**
+Most resumes never reach a human. They get filtered out by Applicant Tracking Systems (ATS) before anyone reads them. ResumeJe fixes that.
 
-No account needed to get started.
+Upload your resume, and our AI instantly rewrites it to be clearer, stronger, and ATS-friendly — while keeping your voice. Whether you are a fresh graduate or a seasoned professional, ResumeJe helps you put your best foot forward.
 
 ---
 
-## Features
+## What You Can Do
 
-- **AI Resume Enhancement** — Upload your resume and get an AI-polished version instantly
-- **ATS Score Checker** — See how well your resume passes applicant tracking systems
-- **Section Rewriter** — Improve individual sections with targeted AI suggestions
-- **Cover Letter Generator** — Generate a tailored cover letter in seconds
-- **PDF Export** — Download your finished resume as a clean PDF
-- **Feedback Page** — Leave or read community feedback (Google sign-in)
+### 📄 AI Resume Enhancement
+Upload your existing resume (PDF, DOCX, or TXT). The AI reads it, restructures it, improves the language, and gives you back a polished version — ready to send.
+
+### 📊 ATS Score Checker
+Paste a job description and your resume. Get a real ATS compatibility score with specific feedback on what to improve so your resume clears the filter.
+
+### ✏️ Section Rewriter
+Not happy with your work experience bullet points? Select any section and let the AI rewrite it with stronger, more impactful language.
+
+### 💌 Cover Letter Generator
+Enter the job you are applying for and get a tailored cover letter in seconds. No more staring at a blank page.
+
+### 📥 PDF Export
+Download your completed resume as a clean, formatted PDF — ready to send to any employer.
+
+---
+
+## How It Works
+
+```
+You upload your resume
+        ↓
+AI reads and enhances it (HuggingFace → Groq fallback)
+        ↓
+You review, tweak, and export as PDF
+        ↓
+Apply with confidence
+```
 
 ---
 
@@ -36,10 +68,10 @@ No account needed to get started.
 
 ---
 
-## Contributing / Self-Hosting
+<div align="center">
 
-See [backend/README.md](../backend/README.md) and [frontend/README.md](../frontend/README.md) for local setup instructions.
+**[Start now at www.resumeje.my](https://www.resumeje.my)**
 
----
+MIT License · Built by [wan-ilhami](https://github.com/wan-ilhami)
 
-**MIT License** · Built by [wan-ilhami](https://github.com/wan-ilhami)
+</div>

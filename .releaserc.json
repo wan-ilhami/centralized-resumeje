@@ -1,0 +1,111 @@
+{
+  "branches": [
+    {
+      "name": "main",
+      "prerelease": false
+    }
+  ],
+  "plugins": [
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "preset": "conventionalcommits",
+        "releaseRules": [
+          {
+            "type": "feat",
+            "release": "minor"
+          },
+          {
+            "type": "fix",
+            "release": "patch"
+          },
+          {
+            "type": "hotfix",
+            "release": "patch"
+          },
+          {
+            "type": "perf",
+            "release": "patch"
+          },
+          {
+            "type": "revert",
+            "release": "patch"
+          },
+          {
+            "breaking": true,
+            "release": "major"
+          }
+        ]
+      }
+    ],
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        "preset": "conventionalcommits",
+        "presetConfig": {
+          "types": [
+            {
+              "type": "feat",
+              "section": "✨ Features",
+              "hidden": false
+            },
+            {
+              "type": "fix",
+              "section": "🐛 Bug Fixes",
+              "hidden": false
+            },
+            {
+              "type": "hotfix",
+              "section": "🔥 Hotfixes",
+              "hidden": false
+            },
+            {
+              "type": "perf",
+              "section": "⚡ Performance",
+              "hidden": false
+            },
+            {
+              "type": "revert",
+              "section": "⏮️ Reverts",
+              "hidden": false
+            },
+            {
+              "type": "docs",
+              "section": "📝 Documentation",
+              "hidden": false
+            },
+            {
+              "type": "test",
+              "section": "🧪 Tests",
+              "hidden": true
+            },
+            {
+              "type": "refactor",
+              "section": "♻️ Code Refactoring",
+              "hidden": true
+            },
+            {
+              "type": "chore",
+              "section": "🔧 Chores",
+              "hidden": true
+            }
+          ]
+        }
+      }
+    ],
+    "@semantic-release/npm",
+    [
+      "@semantic-release/git",
+      {
+        "assets": [
+          "package.json",
+          "package-lock.json",
+          "README.md",
+          "CHANGELOG.md"
+        ],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ],
+    "@semantic-release/github"
+  ]
+}

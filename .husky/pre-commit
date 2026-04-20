@@ -1,0 +1,40 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks: TypeScript + ESLint..."
+
+cd centralized-resume
+
+# Run ESLint on frontend
+echo "📋 Linting frontend..."
+bun lint --prefix ../frontend
+if [ $? -ne 0 ]; then
+  echo "❌ Frontend ESLint check FAILED. Fix lint errors before committing."
+  exit 1
+fi
+
+# Run ESLint on backend
+echo "📋 Linting backend..."
+bun lint --prefix ../backend
+if [ $? -ne 0 ]; then
+  echo "❌ Backend ESLint check FAILED. Fix lint errors before committing."
+  exit 1
+fi
+
+# Run TypeScript type-check on frontend
+echo "🔎 Type-checking frontend..."
+bun type-check --prefix ../frontend
+if [ $? -ne 0 ]; then
+  echo "❌ Frontend TypeScript check FAILED. Fix type errors before committing."
+  exit 1
+fi
+
+# Run TypeScript type-check on backend
+echo "🔎 Type-checking backend..."
+bun type-check --prefix ../backend
+if [ $? -ne 0 ]; then
+  echo "❌ Backend TypeScript check FAILED. Fix type errors before committing."
+  exit 1
+fi
+
+echo "✅ All pre-commit checks passed!"

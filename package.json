@@ -1,0 +1,41 @@
+{
+  "name": "resumeje",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Resume Builder - AI-powered resume enhancement",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "clean:ports": "bunx kill-port --port 3000,3001",
+    "clean:cache": "bunx rimraf ../frontend/.next ../backend/dist",
+    "clean": "bun run clean:cache && bun run clean:ports",
+    "dev": "bun install && bun install --cwd ../backend && bun install --cwd ../frontend && bun run clean && concurrently -n BACKEND,FRONTEND -c green,cyan \"bun run --cwd ../backend dev\" \"bun run --cwd ../frontend dev\"",
+    "lint": "bun run --cwd ../frontend lint && bun run --cwd ../backend lint",
+    "lint:fix": "bun run --cwd ../frontend lint:fix && bun run --cwd ../backend lint:fix",
+    "type-check": "bun run --cwd ../frontend type-check && bun run --cwd ../backend type-check",
+    "verify": "bun run lint && bun run type-check",
+    "verify:frontend": "bun run --cwd ../frontend lint && bun run --cwd ../frontend type-check",
+    "verify:backend": "bun run --cwd ../backend lint && bun run --cwd ../backend type-check",
+    "build": "bun run build:all",
+    "build:all": "bun run verify && bun run --cwd ../backend build && bun run --cwd ../frontend build",
+    "prod": "bun run --cwd ../backend start & bun run --cwd ../frontend start",
+    "release": "semantic-release",
+    "release:dry-run": "semantic-release --dry-run"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.4.2",
+    "@commitlint/config-conventional": "^20.4.2",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^12.0.6",
+    "@semantic-release/npm": "^13.1.4",
+    "@semantic-release/release-notes-generator": "^14.1.0",
+    "commitlint": "^20.4.2",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "husky": "^9.1.7",
+    "kill-port": "^2.0.1",
+    "rimraf": "^6.0.1",
+    "semantic-release": "^25.0.3"
+  }
+}

@@ -1,0 +1,64 @@
+name: Sync Versions
+
+on:
+  repository_dispatch:
+    types: [version-updated]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update package.json and README
+        env:
+          COMPONENT: ${{ github.event.client_payload.component }}
+          VERSION: ${{ github.event.client_payload.version }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "$COMPONENT" ] || [ -z "$VERSION" ]; then
+            echo "Missing component or version in dispatch payload"
+            exit 1
+          fi
+          if [ "$COMPONENT" != "frontend" ] && [ "$COMPONENT" != "backend" ]; then
+            echo "Unknown component: $COMPONENT"
+            exit 1
+          fi
+
+          jq --arg c "$COMPONENT" --arg v "$VERSION" \
+            '.versions = ((.versions // {}) | .[$c] = $v)' \
+            package.json > package.json.tmp
+          mv package.json.tmp package.json
+
+          FRONTEND=$(jq -r '.versions.frontend // "—"' package.json)
+          BACKEND=$(jq -r '.versions.backend // "—"' package.json)
+          DATE=$(date -u +%Y-%m-%d)
+
+          BLOCK=$(printf '<!-- versions:start -->\n**Frontend** v%s · **Backend** v%s · _synced %s_\n<!-- versions:end -->' \
+            "$FRONTEND" "$BACKEND" "$DATE")
+
+          awk -v block="$BLOCK" '
+            /<!-- versions:start -->/ { print block; in_block=1; next }
+            /<!-- versions:end -->/   { in_block=0; next }
+            !in_block                 { print }
+          ' README.md > README.md.tmp
+          mv README.md.tmp README.md
+
+      - name: Commit and push
+        env:
+          COMPONENT: ${{ github.event.client_payload.component }}
+          VERSION: ${{ github.event.client_payload.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json README.md
+          if git diff --staged --quiet; then
+            echo "No version changes to commit"
+            exit 0
+          fi
+          git commit -m "chore(versions): sync ${COMPONENT} to v${VERSION} [skip ci]"
+          git push

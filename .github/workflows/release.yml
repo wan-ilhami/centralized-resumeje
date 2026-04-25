@@ -13,11 +13,11 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: '22'
 
@@ -25,10 +25,8 @@ jobs:
         with:
           bun-version: latest
 
-      - run: cd centralized-resume && bun install
-        env:
-          BUN_INSTALL_CACHE_DIR: /tmp/bun-cache
+      - run: bun install --frozen-lockfile
 
-      - run: cd centralized-resume && bun run release
+      - run: bunx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
